@@ -16,7 +16,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/api/get-all-books/", (req, res) => {
-    res.send({ status: "success", response: bookDirectory});
+  res.send({ status: "success", response: bookDirectory });
 });
 
 // API call - add new book
@@ -57,6 +57,25 @@ app.put("/api/update-book/", (req, res) => {
           " author : " +
           bookDirectory[index].author
       );
+    }
+    res.send({ status: "success", response: bookDirectory });
+  }
+});
+
+app.delete("/api/delete-book/", (req, res) => {
+  const bookId = req.query.bookId;
+
+  for (let index = 0; index < bookDirectory.length; index++) {
+    if (bookId == bookDirectory[index].id) {
+      console.log(
+        "Deleted book - " +
+          " name : " +
+          bookDirectory[index].name +
+          " author : " +
+          bookDirectory[index].author
+      );
+      bookDirectory.splice(index, 1);
+      console.log("Book removed...");
     }
     res.send({ status: "success", response: bookDirectory });
   }
